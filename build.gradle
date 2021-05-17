@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+    id 'war'
+    id 'org.gretty' version '3.0.4'
+}
+
+group 'net.therap'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://plugins.gradle.org/m2/"
+    }
+}
+
+dependencies {
+    runtime 'mysql:mysql-connector-java:8.0.23'
+    implementation 'org.hibernate:hibernate-core:5.4.30.Final'
+    implementation 'javax.servlet:jstl:1.2'
+    implementation 'org.springframework:spring-core:5.2.14.RELEASE'
+    implementation 'org.springframework:spring-webmvc:5.2.14.RELEASE'
+    implementation 'javax.validation:validation-api:2.0.0.Final'
+    implementation 'org.hibernate.validator:hibernate-validator:7.0.0.Final'
+}
+
+gretty {
+    httpPort = 8080
+    contextPath = '/CourseWebApp'
+}
