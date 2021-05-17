@@ -11,9 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Set;
@@ -29,7 +27,7 @@ public class CourseController {
 
     @RequestMapping("/traineedetailsbycourseid")
     public String getTraineeDetails(@ModelAttribute("coursedetails") Course course,
-                                   BindingResult result, ModelMap model) {
+                                    BindingResult result, ModelMap model) {
         if (result.hasErrors()) {
             return "login";
         }
@@ -49,45 +47,41 @@ public class CourseController {
         return "course";
     }
 
-    @RequestMapping(value = "/addnewcourse")
-    public String addCourse(@ModelAttribute("coursedetails") Course course,
-                            BindingResult result, RedirectAttributes rattrs) {
-        if (result.hasErrors()) {
-            return "login";
+    @GetMapping("/courses")
+    public String show(@RequestParam(value = "id", required = false, defaultValue = "0") Integer id, Model model,
+                       RedirectAttributes rttr) {
+
+        if (id == 0 || courseService.isIdExist(id)) {
+            Course course = (id == 0) ? new Course() : courseService.find(id);
+            model.addAttribute("coursedetails", course);
+            System.out.println("Hello me here in Homecontroller" + course.getId());
+            return "course";
+        } else {
+            rttr.addFlashAttribute("messageinvalidcourseid", "Invalid Course id");
+            return "redirect:/welcome";
         }
-        String message = "";
+    }
+
+    @PostMapping("/courses")
+    public String process(@ModelAttribute("coursedetails") Course course, BindingResult result, RedirectAttributes rattrs) {
+
+        System.out.println("This is course id " + course.getId());
+        if (result.hasErrors()) {
+            return "redirect:/welcome";
+        }
         CourseValidator courseValidator = new CourseValidator();
         if (courseValidator.isValidTitle(course.getTitle())) {
-            courseService.save(course);
-            message = "Course Added Successfully";
-        } else {
-            message = "Title already exits";
-        }
-        rattrs.addFlashAttribute("messageaddnewcourse", message);
-        return "redirect:/courses";
-    }
-
-    @RequestMapping(value = "/updatecoursetitle")
-    public String updateCourse(@ModelAttribute("coursedetails") Course course,
-                               BindingResult result, RedirectAttributes rattrs) {
-        if (result.hasErrors()) {
-            return "login";
-        }
-        String message = "";
-        CourseValidator courseValidator = new CourseValidator();
-        if (courseValidator.isValidId(course.getId())) {
             courseService.saveOrUpdate(course);
-            message = "Course Title Updated Successfully";
+            return "redirect:/getcourses";
         } else {
-            message = "Invalid Course Id";
+            rattrs.addFlashAttribute("messagesaveorupdate", "Title already exits");
+//            rattrs.addFlashAttribute("id", course.getId());
+            return "redirect:/courses?id="+course.getId();
         }
-        rattrs.addFlashAttribute("messageupdatecoursetitle", message);
-        return "redirect:/courses";
     }
-
     @RequestMapping(value = "/removecourse")
     public String removeCourse(@ModelAttribute("coursedetails") Course course,
-                                   BindingResult result, RedirectAttributes rattrs) {
+                               BindingResult result, RedirectAttributes rattrs) {
         if (result.hasErrors()) {
             return "login";
         }
@@ -100,6 +94,7 @@ public class CourseController {
             message = "Invalid Id";
         }
         rattrs.addFlashAttribute("messageremovecourse", message);
+
         return "redirect:/courses";
     }
 

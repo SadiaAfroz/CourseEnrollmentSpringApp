@@ -37,42 +37,42 @@
         <div class="col l6">
             <div class="card yellow lighten-3">
                 <div class="card-content">
-                    <form:form action="addnewtrainee" method="post" modelAttribute="traineedetails">
-                        <h1>Add New Trainee: </h1><br>
+                    <form:form action="trainees" method="post" modelAttribute="traineedetails">
+                        <h1>Save or Update a Trainee: </h1><br>
                         Enter Trainee Name : <form:input type="text" path="name" required="required"/><br>
                         Enter Trainee Email : <form:input type="text" path="email" required="required"/><br>
                         <button type="submit" class="btn">Save</button>
                     </form:form>
-                    <p><span style="color: red; ">${messageaddnewtrainee}</span></p>
+                    <p><span style="color: red; "> ${messagesaveorupdate}</span></p>
                 </div>
             </div>
         </div>
-        <div class="col l6">
-            <div class="card yellow lighten-3">
-                <div class="card-content">
-                    <form:form action="updatetraineeemail" method="post" modelAttribute="traineedetails">
-                        <h1>Update Trainee Email : </h1><br>
-                        Enter trainee id : <form:input type="text" path="id" required="required"/></br>
-                        Enter new email : <form:input type="text" path="email" required="required"/></br>
-                        <button type="submit" class="btn">Update</button>
-                        <p><span style="color: red; ">${messageupdatetraineeemail}</span></p>
-                    </form:form>
-                </div>
-            </div>
-        </div>
-        <div class="col l6">
-            <div class="card yellow lighten-3">
-                <div class="card-content">
-                    <form:form action="updatetraineename" method="post" modelAttribute="traineedetails">
-                        <h1>Update Trainee Name : </h1><br>
-                        Enter Trainee id : <form:input type="text" path="id" required="required"/></br>
-                        Enter new Name : <form:input type="text" path="name" required="required"/></br>
-                        <button type="submit" class="btn">Update</button>
-                        <p><span style="color: red; ">${messageupdatetraineename}</span></p>
-                    </form:form>
-                </div>
-            </div>
-        </div>
+<%--        <div class="col l6">--%>
+<%--            <div class="card yellow lighten-3">--%>
+<%--                <div class="card-content">--%>
+<%--                    <form:form action="updatetraineeemail" method="post" modelAttribute="traineedetails">--%>
+<%--                        <h1>Update Trainee Email : </h1><br>--%>
+<%--                        Enter trainee id : <form:input type="text" path="id" required="required"/></br>--%>
+<%--                        Enter new email : <form:input type="text" path="email" required="required"/></br>--%>
+<%--                        <button type="submit" class="btn">Update</button>--%>
+<%--                        <p><span style="color: red; ">${messageupdatetraineeemail}</span></p>--%>
+<%--                    </form:form>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--        <div class="col l6">--%>
+<%--            <div class="card yellow lighten-3">--%>
+<%--                <div class="card-content">--%>
+<%--                    <form:form action="updatetraineename" method="post" modelAttribute="traineedetails">--%>
+<%--                        <h1>Update Trainee Name : </h1><br>--%>
+<%--                        Enter Trainee id : <form:input type="text" path="id" required="required"/></br>--%>
+<%--                        Enter new Name : <form:input type="text" path="name" required="required"/></br>--%>
+<%--                        <button type="submit" class="btn">Update</button>--%>
+<%--                        <p><span style="color: red; ">${messageupdatetraineename}</span></p>--%>
+<%--                    </form:form>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
         <div class="col l6">
             <div class="card yellow lighten-3">
                 <div class="card-content">

@@ -15,8 +15,8 @@ public class TraineeValidator {
         traineeDao = new TraineeDao();
     }
 
-    public boolean isValidName(String traineeName) {
-        int count = traineeDao.isNameExists(traineeName);
+    public boolean isValidEmail(String traineeEmail) {
+        int count = traineeDao.isEmailExists(traineeEmail);
         if (count == 0) {
             return true;
         }
@@ -29,6 +29,15 @@ public class TraineeValidator {
             return false;
         }
         return true;
+    }
+
+    public boolean isValidNameEmail(String name, String email) {
+        TraineeDao traineeDao = new TraineeDao();
+        int count=traineeDao.isNameEmailExist(name, email);
+        if(count==0) {
+            return true;
+        }
+        return false;
     }
 
     public boolean hasTraineeCapacity(int courseId, int numberOfTrainees) {

@@ -21,6 +21,14 @@ public class TraineeDao {
         this.entityManager = entityManagerFactory.createEntityManager();
     }
 
+    public Trainee findById(int traineeId) {
+
+        Trainee trainee = entityManager.find(Trainee.class,traineeId);
+
+        entityManager.close();
+        entityManagerFactory.close();
+        return trainee;
+    }
     public Set<Trainee> findAllByCourseId(int courseId) {
         Course course = (Course) entityManager.find(Course.class, courseId);
         return course.getTrainees();
@@ -40,12 +48,12 @@ public class TraineeDao {
         return query.getResultList();
     }
 
-    public int isNameExists(String name) {
-        String sql = "SELECT COUNT(id) as count FROM Trainee WHERE name=:name";
+    public int isEmailExists(String email) {
+        String sql = "SELECT COUNT(id) as count FROM Trainee WHERE email=:email";
         int count = 0;
         Query query = entityManager.createQuery(sql);
 
-        count = ((Long) query.setParameter("name", name).getSingleResult()).intValue();
+        count = ((Long) query.setParameter("email", email).getSingleResult()).intValue();
 
         entityManager.close();
         entityManagerFactory.close();
@@ -58,6 +66,18 @@ public class TraineeDao {
         Query query = entityManager.createQuery(sql);
 
         count = ((Long) query.setParameter("id", id).getSingleResult()).intValue();
+
+        entityManager.close();
+        entityManagerFactory.close();
+        return count;
+    }
+
+    public int isNameEmailExist(String name, String email){
+        String sql = "SELECT COUNT(id) as count FROM Trainee WHERE name=:name AND email=:email";
+        int count = 0;
+        Query query = entityManager.createQuery(sql);
+
+        count = ((Long) query.setParameter("name", name).setParameter("email",email).getSingleResult()).intValue();
 
         entityManager.close();
         entityManagerFactory.close();

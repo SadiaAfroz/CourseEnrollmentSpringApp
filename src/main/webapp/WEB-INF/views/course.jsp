@@ -35,28 +35,28 @@
         <div class="col l6">
             <div class="card yellow lighten-3">
                 <div class="card-content">
-                    <form:form action="addnewcourse" method="post" modelAttribute="coursedetails">
-                        <h1>Add New Course: </h1><br>
+                    <form:form action="courses/?id=${coursedetails.id}" method="post" modelAttribute="coursedetails">
+                        <h1>Save or Update a Course: </h1><br>
                         Enter course Title : <form:input type="text" path="title" required="required"/><br>
                         <button type="submit" class="btn">Save</button>
                     </form:form>
-                    <p><span style="color: red; "> ${messageaddnewcourse}</span></p>
+                    <p><span style="color: red; "> ${messagesaveorupdate}</span></p>
                 </div>
             </div>
         </div>
-        <div class="col l6">
-            <div class="card yellow lighten-3">
-                <div class="card-content">
-                    <form:form action="updatecoursetitle" method="post" modelAttribute="coursedetails">
-                        <h1>Update Course Title: </h1><br>
-                        Enter course id : <form:input type="text" path="id" required="required"/></br>
-                        Enter new Title : <form:input type="text" path="title" required="required"/></br>
-                        <button type="submit" class="btn">Update</button>
-                    </form:form>
-                    <p><span style="color: red; ">${messageupdatecoursetitle}</span></p>
-                </div>
-            </div>
-        </div>
+<%--        <div class="col l6">--%>
+<%--            <div class="card yellow lighten-3">--%>
+<%--                <div class="card-content">--%>
+<%--                    <form:form action="courses" method="post" modelAttribute="coursedetails">--%>
+<%--                        <h1>Update Course Title: </h1><br>--%>
+<%--&lt;%&ndash;                        Enter course id : <form:input type="text" path="id" required="required"/></br>&ndash;%&gt;--%>
+<%--                        Enter new Title : <form:input type="text" path="title" required="required"/></br>--%>
+<%--                        <button type="submit" class="btn">Update</button>--%>
+<%--                    </form:form>--%>
+<%--                    <p><span style="color: red; ">${messageupdatecoursetitle}</span></p>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
         <div class="col l6">
             <div class="card yellow lighten-3">
                 <div class="card-content">
@@ -72,7 +72,7 @@
         <div class="col l6">
             <div class="card yellow lighten-3">
                 <div class="card-content">
-                    <form:form action="getallcourses">
+                    <form:form action="getcourses" method="get">
                         <h1>Get All Courses: </h1><br>
                         <button type="submit" class="btn">Get Courses</button>
                     </form:form>

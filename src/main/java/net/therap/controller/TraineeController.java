@@ -49,27 +49,25 @@ public class TraineeController {
         return "trainee";
     }
 
-
-
-    @RequestMapping(value = "/addnewtrainee")
-    public String addTrainee(@ModelAttribute("traineedetails") Trainee trainee,
-                             BindingResult result, ModelMap model) {
-        if (result.hasErrors()) {
-            return "login";
-        }
-        String name = trainee.getName();
-        String email = trainee.getEmail();
-        String message = "";
-        TraineeValidator traineeValidator = new TraineeValidator();
-        if (traineeValidator.isValidName(name)) {
-            traineeService.save(trainee);
-            message = "Trainee Added Successfully";
-        } else {
-            message = "Trainee Name already exits";
-        }
-        model.addAttribute("messageaddnewtrainee", message);
-        return "redirect:/trainees";
-    }
+//    @RequestMapping(value = "/addnewtrainee")
+//    public String addTrainee(@ModelAttribute("traineedetails") Trainee trainee,
+//                             BindingResult result, ModelMap model) {
+//        if (result.hasErrors()) {
+//            return "login";
+//        }
+//        String name = trainee.getName();
+//        String email = trainee.getEmail();
+//        String message = "";
+//        TraineeValidator traineeValidator = new TraineeValidator();
+//        if (traineeValidator.isValidName(name)) {
+//            traineeService.save(trainee);
+//            message = "Trainee Added Successfully";
+//        } else {
+//            message = "Trainee Name already exits";
+//        }
+//        model.addAttribute("messageaddnewtrainee", message);
+//        return "redirect:/trainees";
+//    }
 
     @RequestMapping(value = "/updatetraineeemail")
     public String updateTraineeEmail(@ModelAttribute("traineedetails") Trainee trainee,
