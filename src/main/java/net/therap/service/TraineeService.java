@@ -1,8 +1,6 @@
 package net.therap.service;
 
-import net.therap.dao.CourseDao;
 import net.therap.dao.TraineeDao;
-import net.therap.model.Course;
 import net.therap.model.Trainee;
 import org.springframework.stereotype.Service;
 
@@ -51,8 +49,8 @@ public class TraineeService {
 
     public boolean isIdExist(int traineeId) {
         TraineeDao traineeDao = new TraineeDao();
-        int count=traineeDao.isIdExists(traineeId);
-        if(count==0) {
+        int count = traineeDao.isIdExists(traineeId);
+        if (count == 0) {
             return false;
         }
         return true;

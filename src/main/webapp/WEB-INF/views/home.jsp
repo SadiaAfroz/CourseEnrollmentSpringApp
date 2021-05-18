@@ -10,7 +10,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>CourseApp</title>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
@@ -25,19 +25,15 @@
             <div>
                 <form:form action="courses" method="get">
                     Course Module(id) : <input type="number" name="id"/><br>
-<%--                    <form:errors path="id"/>--%>
                     <button type="submit" class="btn">Go</button>
                 </form:form>
                 <p><span style="color: red; "> ${messageinvalidcourseid}</span></p><br>
                 <form:form action="trainees" method="get">
                     Trainee Module(id) : <input type="number" name="id"/><br>
-<%--                    <form:errors path="id"/>--%>
                     <button type="submit" class="btn">Go</button>
                 </form:form>
                 <p><span style="color: red; "> ${messageinvalidtraineeid}</span></p><br>
-<%--                <a href="<c:url value="/courses"/>">Course Module</a><br>--%>
-<%--                <a href="<c:url value="/trainees"/>">Trainee Module</a><br>--%>
-<%--                <a href="<c:url value="/enrollment"/>">Enrollment Module</a><br>--%>
+
                 <a href="<c:url value="/getallcourses"/>">View All Courses</a><br>
                 <a href="<c:url value="/getalltrainees"/>">View All Trianess</a><br>
                 <a href="<c:url value="/logout"/>">Logout</a>

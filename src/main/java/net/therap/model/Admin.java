@@ -4,6 +4,10 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
+/**
+ * @author sadia.afroz
+ * @since 5/17/21
+ */
 @Entity
 @Table(name = "admin")
 public class Admin implements Serializable {

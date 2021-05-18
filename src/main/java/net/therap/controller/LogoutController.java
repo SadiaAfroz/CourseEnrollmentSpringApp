@@ -5,6 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 
+/**
+ * @author sadia.afroz
+ * @since 5/17/21
+ */
 @Controller
 public class LogoutController {
 

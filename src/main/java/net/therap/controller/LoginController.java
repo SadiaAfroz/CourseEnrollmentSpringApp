@@ -25,7 +25,7 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loadLogin(Model model) {
-        Admin admin=new Admin();
+        Admin admin = new Admin();
         model.addAttribute("admin", admin);
         return "login";
     }
@@ -33,7 +33,6 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String loadWelcome(@Valid @ModelAttribute("admin") Admin admin,
                               BindingResult result, ModelMap model, HttpSession session) {
-        System.out.println("Its me "+ "|"+ admin.getUsername()+"|");
         if (result.hasErrors()) {
             model.addAttribute("errorMessage", "Wrong Formatted Data input");
             return "login";
@@ -50,8 +49,8 @@ public class LoginController {
     }
 
     @InitBinder
-    public void initBinder(WebDataBinder binder){
-        StringTrimmerEditor editor= new StringTrimmerEditor(true);
+    public void initBinder(WebDataBinder binder) {
+        StringTrimmerEditor editor = new StringTrimmerEditor(true);
         binder.registerCustomEditor(String.class, editor);
     }
 

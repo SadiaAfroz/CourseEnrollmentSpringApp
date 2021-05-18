@@ -9,7 +9,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>CourseApp</title>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
@@ -23,11 +23,8 @@
         <div class="col l6">
             <div class="card yellow lighten-3">
                 <div class="card-content">
-
-                    <form:form action="coursedetailsbytraineeid" modelAttribute="traineedetails">
-                        <h1>Course details by Traineeid: </h1><br>
-                        Enter trainee id : <form:input type="text" path="id"/><br>
-                        <form:errors path="id"/><br>
+                    <form:form action="coursedetailsbytraineeid/?id=${traineedetails.id}" modelAttribute="traineedetails">
+                        <h4>Course details by Traineeid: </h4><br>
                         <button type="submit" class="btn">Submit</button>
                     </form:form>
                     <p><span style="color: red; ">${messagecourse}</span></p>
@@ -37,8 +34,8 @@
         <div class="col l6">
             <div class="card yellow lighten-3">
                 <div class="card-content">
-                    <form:form action="trainees" method="post" modelAttribute="traineedetails">
-                        <h1>Save or Update a Trainee: </h1><br>
+                    <form:form action="trainees/?id=${traineedetails.id}" method="post" modelAttribute="traineedetails">
+                        <h5>Save or Update a Trainee: </h5><br>
                         Enter Trainee Name : <form:input type="text" path="name" required="required"/><br>
                         Enter Trainee Email : <form:input type="text" path="email" required="required"/><br>
                         <button type="submit" class="btn">Save</button>
@@ -47,38 +44,12 @@
                 </div>
             </div>
         </div>
-<%--        <div class="col l6">--%>
-<%--            <div class="card yellow lighten-3">--%>
-<%--                <div class="card-content">--%>
-<%--                    <form:form action="updatetraineeemail" method="post" modelAttribute="traineedetails">--%>
-<%--                        <h1>Update Trainee Email : </h1><br>--%>
-<%--                        Enter trainee id : <form:input type="text" path="id" required="required"/></br>--%>
-<%--                        Enter new email : <form:input type="text" path="email" required="required"/></br>--%>
-<%--                        <button type="submit" class="btn">Update</button>--%>
-<%--                        <p><span style="color: red; ">${messageupdatetraineeemail}</span></p>--%>
-<%--                    </form:form>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--        <div class="col l6">--%>
-<%--            <div class="card yellow lighten-3">--%>
-<%--                <div class="card-content">--%>
-<%--                    <form:form action="updatetraineename" method="post" modelAttribute="traineedetails">--%>
-<%--                        <h1>Update Trainee Name : </h1><br>--%>
-<%--                        Enter Trainee id : <form:input type="text" path="id" required="required"/></br>--%>
-<%--                        Enter new Name : <form:input type="text" path="name" required="required"/></br>--%>
-<%--                        <button type="submit" class="btn">Update</button>--%>
-<%--                        <p><span style="color: red; ">${messageupdatetraineename}</span></p>--%>
-<%--                    </form:form>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
         <div class="col l6">
             <div class="card yellow lighten-3">
                 <div class="card-content">
-                    <form:form action="removetrainee" method="post" modelAttribute="traineedetails">
-                        <h1>Remove Trainee : </h1><br>
-                        Enter trainee id : <form:input type="text" path="id" required="required"/><br>
+                    <form:form action="removetrainee/?id=${traineedetails.id}" method="post"
+                               modelAttribute="traineedetails">
+                        <h4>Remove Trainee : </h4><br>
                         <button type="submit" class="btn">Remove</button>
                         <p><span style="color: red; ">${messageremovetrainee}</span></p>
                     </form:form>

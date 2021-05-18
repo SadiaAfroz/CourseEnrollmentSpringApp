@@ -4,20 +4,21 @@ import net.therap.model.Course;
 import net.therap.model.Trainee;
 import net.therap.service.CourseService;
 import net.therap.service.TraineeService;
-import net.therap.validator.CourseValidator;
 import net.therap.validator.TraineeValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Set;
 
+/**
+ * @author sadia.afroz
+ * @since 5/17/21
+ */
 @Controller
 public class TraineeController {
 
@@ -30,10 +31,9 @@ public class TraineeController {
     public String getCourseDetails(@ModelAttribute("traineedetails") Trainee trainee,
                                    BindingResult result, ModelMap model) {
         if (result.hasErrors()) {
-            return "login";
+            return "redirect:/welcome";
         }
         int traineeId = trainee.getId();
-        System.out.println("This is mee " + traineeId);
         TraineeValidator tv = new TraineeValidator();
         if (tv.isValidId(traineeId)) {
             Set<Course> courses = courseService.findAllByTraineeId(traineeId);
@@ -49,67 +49,40 @@ public class TraineeController {
         return "trainee";
     }
 
-//    @RequestMapping(value = "/addnewtrainee")
-//    public String addTrainee(@ModelAttribute("traineedetails") Trainee trainee,
-//                             BindingResult result, ModelMap model) {
-//        if (result.hasErrors()) {
-//            return "login";
-//        }
-//        String name = trainee.getName();
-//        String email = trainee.getEmail();
-//        String message = "";
-//        TraineeValidator traineeValidator = new TraineeValidator();
-//        if (traineeValidator.isValidName(name)) {
-//            traineeService.save(trainee);
-//            message = "Trainee Added Successfully";
-//        } else {
-//            message = "Trainee Name already exits";
-//        }
-//        model.addAttribute("messageaddnewtrainee", message);
-//        return "redirect:/trainees";
-//    }
-
-    @RequestMapping(value = "/updatetraineeemail")
-    public String updateTraineeEmail(@ModelAttribute("traineedetails") Trainee trainee,
-                                     BindingResult result, RedirectAttributes rattrs) {
-        if (result.hasErrors()) {
-            return "login";
-        }
-        String message = "";
-        TraineeValidator traineeValidator = new TraineeValidator();
-        if (traineeValidator.isValidId(trainee.getId())) {
-            traineeService.saveOrUpdate(trainee);
-            message = "Trainee Email updated Successfully";
+    @GetMapping("/trainees")
+    public String show(@RequestParam(value = "id", required = false, defaultValue = "0") Integer id, Model model,
+                       RedirectAttributes rttr) {
+        if (id == 0 || traineeService.isIdExist(id)) {
+            Trainee trainee = (id == 0) ? new Trainee() : traineeService.find(id);
+            model.addAttribute("traineedetails", trainee);
+            return "trainee";
         } else {
-            message = "Invalid Trainee Id";
+            rttr.addFlashAttribute("messageinvalidtraineeid", "Invalid Trainee id");
+            return "redirect:/welcome";
         }
-        rattrs.addFlashAttribute("messageupdatetraineeemail", message);
-        return "redirect:/trainees";
     }
 
-    @RequestMapping(value = "/updatetraineename")
-    public String updateTraineeName(@ModelAttribute("traineedetails") Trainee trainee,
-                                    BindingResult result, RedirectAttributes rattrs) {
+    @PostMapping("/trainees")
+    public String process(@ModelAttribute("traineedetails") Trainee trainee,
+                          BindingResult result, ModelMap model, RedirectAttributes rattrs) {
         if (result.hasErrors()) {
-            return "login";
+            return "redirect:/welcome";
         }
-        String message = "";
         TraineeValidator traineeValidator = new TraineeValidator();
-        if (traineeValidator.isValidId(trainee.getId())) {
+        if (traineeValidator.isValidNameEmail(trainee.getName(), trainee.getEmail()) && traineeValidator.isValidEmail(trainee.getEmail())) {
             traineeService.saveOrUpdate(trainee);
-            message = "Trainee Name updated Successfully";
+            return "redirect:/gettrainees";
         } else {
-            message = "Invalid Trainee Id";
+            rattrs.addFlashAttribute("messagesaveorupdate", "Duplicate Entry or Email");
+            return "redirect:/trainees?id=" + trainee.getId();
         }
-        rattrs.addFlashAttribute("messageupdatetraineename", message);
-        return "redirect:/trainees";
     }
 
     @RequestMapping(value = "/removetrainee")
     public String removeTrainee(@ModelAttribute("traineedetails") Trainee trainee,
                                 BindingResult result, RedirectAttributes rattrs) {
         if (result.hasErrors()) {
-            return "login";
+            return "redirect:/welcome";
         }
         String message = "";
         TraineeValidator traineeValidator = new TraineeValidator();
@@ -120,7 +93,7 @@ public class TraineeController {
             message = "Invalid Id";
         }
         rattrs.addFlashAttribute("messageremovetrainee", message);
-        return "redirect:/trainees";
+        return "redirect:/trainees?id=" + trainee.getId();
     }
 
     @RequestMapping(value = "/gettrainees", method = RequestMethod.GET)

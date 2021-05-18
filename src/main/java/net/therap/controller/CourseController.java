@@ -5,7 +5,6 @@ import net.therap.model.Trainee;
 import net.therap.service.CourseService;
 import net.therap.service.TraineeService;
 import net.therap.validator.CourseValidator;
-import net.therap.validator.TraineeValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +15,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Set;
 
+/**
+ * @author sadia.afroz
+ * @since 5/17/21
+ */
 @Controller
 public class CourseController {
-
 
     @Autowired
     private CourseService courseService;
@@ -29,7 +31,7 @@ public class CourseController {
     public String getTraineeDetails(@ModelAttribute("coursedetails") Course course,
                                     BindingResult result, ModelMap model) {
         if (result.hasErrors()) {
-            return "login";
+            return "redirect:/welcome";
         }
         CourseValidator cv = new CourseValidator();
         int courseId = course.getId();
@@ -54,7 +56,6 @@ public class CourseController {
         if (id == 0 || courseService.isIdExist(id)) {
             Course course = (id == 0) ? new Course() : courseService.find(id);
             model.addAttribute("coursedetails", course);
-            System.out.println("Hello me here in Homecontroller" + course.getId());
             return "course";
         } else {
             rttr.addFlashAttribute("messageinvalidcourseid", "Invalid Course id");
@@ -64,8 +65,6 @@ public class CourseController {
 
     @PostMapping("/courses")
     public String process(@ModelAttribute("coursedetails") Course course, BindingResult result, RedirectAttributes rattrs) {
-
-        System.out.println("This is course id " + course.getId());
         if (result.hasErrors()) {
             return "redirect:/welcome";
         }
@@ -75,15 +74,15 @@ public class CourseController {
             return "redirect:/getcourses";
         } else {
             rattrs.addFlashAttribute("messagesaveorupdate", "Title already exits");
-//            rattrs.addFlashAttribute("id", course.getId());
-            return "redirect:/courses?id="+course.getId();
+            return "redirect:/courses?id=" + course.getId();
         }
     }
+
     @RequestMapping(value = "/removecourse")
     public String removeCourse(@ModelAttribute("coursedetails") Course course,
                                BindingResult result, RedirectAttributes rattrs) {
         if (result.hasErrors()) {
-            return "login";
+            return "redirect:/welcome";
         }
         String message = "";
         CourseValidator courseValidator = new CourseValidator();
@@ -94,8 +93,7 @@ public class CourseController {
             message = "Invalid Id";
         }
         rattrs.addFlashAttribute("messageremovecourse", message);
-
-        return "redirect:/courses";
+        return "redirect:/courses?id=" + course.getId();
     }
 
     @RequestMapping(value = "/getcourses", method = RequestMethod.GET)
@@ -103,6 +101,42 @@ public class CourseController {
         Set<Course> courses = courseService.findAll();
         model.addAttribute("courses", courses);
         return "showCourses";
+    }
+
+    @RequestMapping("/enrollment")
+    public String showEnrollTrainee(@ModelAttribute("coursedetails") Course course,
+                                    BindingResult result, ModelMap model) {
+        if (result.hasErrors()) {
+            return "redirect:/welcome";
+        }
+        CourseValidator cv = new CourseValidator();
+        int courseId = course.getId();
+        if (cv.isValidId(courseId)) {
+            Set<Trainee> trainees = traineeService.findAll();
+            model.addAttribute("trainees", trainees);
+            return "enrollTrainee";
+        } else {
+            model.addAttribute("messageenrolltrainee", "Invalid Course id");
+        }
+        return "course";
+    }
+
+    @RequestMapping("/removeenrollment")
+    public String showRemoveTrainee(@ModelAttribute("coursedetails") Course course,
+                                    BindingResult result, ModelMap model) {
+        if (result.hasErrors()) {
+            return "redirect:/welcome";
+        }
+        CourseValidator cv = new CourseValidator();
+        int courseId = course.getId();
+        if (cv.isValidId(courseId)) {
+            Set<Trainee> trainees = traineeService.findAllByCourseId(courseId);
+            model.addAttribute("trainees", trainees);
+            return "removeTrainee";
+        } else {
+            model.addAttribute("messageremovetrainee", "Invalid Course id");
+        }
+        return "course";
     }
 }
 

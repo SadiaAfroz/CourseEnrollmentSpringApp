@@ -9,7 +9,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>CourseApp</title>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
@@ -22,10 +22,8 @@
         <div class="col l6">
             <div class="card yellow lighten-3">
                 <div class="card-content">
-                    <form:form action="traineedetailsbycourseid" modelAttribute="coursedetails">
+                    <form:form action="traineedetailsbycourseid/?id=${coursedetails.id}" modelAttribute="coursedetails">
                         <h1>Trainee details by Courseid: </h1><br>
-                        Enter course id : <form:input type="text" path="id"/><br>
-                        <form:errors path="id"/><br>
                         <button type="submit" class="btn">Submit</button>
                     </form:form>
                     <p><span style="color: red; ">${messagetrainee}</span></p>
@@ -44,25 +42,12 @@
                 </div>
             </div>
         </div>
-<%--        <div class="col l6">--%>
-<%--            <div class="card yellow lighten-3">--%>
-<%--                <div class="card-content">--%>
-<%--                    <form:form action="courses" method="post" modelAttribute="coursedetails">--%>
-<%--                        <h1>Update Course Title: </h1><br>--%>
-<%--&lt;%&ndash;                        Enter course id : <form:input type="text" path="id" required="required"/></br>&ndash;%&gt;--%>
-<%--                        Enter new Title : <form:input type="text" path="title" required="required"/></br>--%>
-<%--                        <button type="submit" class="btn">Update</button>--%>
-<%--                    </form:form>--%>
-<%--                    <p><span style="color: red; ">${messageupdatecoursetitle}</span></p>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
         <div class="col l6">
             <div class="card yellow lighten-3">
                 <div class="card-content">
-                    <form:form action="removecourse" method="post" modelAttribute="coursedetails">
+                    <form:form action="removecourse/?id=${coursedetails.id}" method="post"
+                               modelAttribute="coursedetails">
                         <h1>Remove Course:</h1><br>
-                        Enter course id : <form:input type="text" path="id" required="required"/><br>
                         <button type="submit" class="btn">Remove</button>
                     </form:form>
                     <p><span style="color: red; ">${messageremovecourse}</span></p>
@@ -76,6 +61,29 @@
                         <h1>Get All Courses: </h1><br>
                         <button type="submit" class="btn">Get Courses</button>
                     </form:form>
+                </div>
+            </div>
+        </div>
+        <div class="col l6">
+            <div class="card yellow lighten-3">
+                <div class="card-content">
+                    <form:form action="enrollment/?id=${coursedetails.id}" method="post" modelAttribute="coursedetails">
+                        <h5>Enroll Trainee to this Course:</h5><br>
+                        <button type="submit" class="btn">Show Trainees</button>
+                    </form:form>
+                    <p><span style="color: red; ">${messageenrolltrainee}</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="col l6">
+            <div class="card yellow lighten-3">
+                <div class="card-content">
+                    <form:form action="removeenrollment/?id=${coursedetails.id}" method="post"
+                               modelAttribute="coursedetails">
+                        <h5>Remove Trainee From this Course:</h5><br>
+                        <button type="submit" class="btn">Show Trainees</button>
+                    </form:form>
+                    <p><span style="color: red; ">${messageremovetrainee}</span></p>
                 </div>
             </div>
         </div>

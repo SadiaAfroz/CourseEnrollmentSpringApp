@@ -1,7 +1,5 @@
 package net.therap.model;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -73,8 +71,8 @@ public class Course implements Serializable {
         }
     }
 
-    public void removeCourseFromTrainees(){
-        for(Trainee trainee: trainees){
+    public void removeCourseFromTrainees() {
+        for (Trainee trainee : trainees) {
             trainee.getCourses().remove(this);
         }
     }

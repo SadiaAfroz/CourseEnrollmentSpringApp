@@ -49,8 +49,8 @@ public class CourseService {
 
     public boolean isIdExist(int courseId) {
         CourseDao courseDao = new CourseDao();
-        int count=courseDao.isIdExists(courseId);
-        if(count==0) {
+        int count = courseDao.isIdExists(courseId);
+        if (count == 0) {
             return false;
         }
         return true;

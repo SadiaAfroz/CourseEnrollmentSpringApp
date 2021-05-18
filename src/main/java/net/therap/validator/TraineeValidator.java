@@ -33,8 +33,8 @@ public class TraineeValidator {
 
     public boolean isValidNameEmail(String name, String email) {
         TraineeDao traineeDao = new TraineeDao();
-        int count=traineeDao.isNameEmailExist(name, email);
-        if(count==0) {
+        int count = traineeDao.isNameEmailExist(name, email);
+        if (count == 0) {
             return true;
         }
         return false;
