@@ -30,8 +30,4 @@ public class AppConfig extends WebMvcConfigurationSupport {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
     }
 
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new AuthenticationInterceptor()).addPathPatterns("/*").excludePathPatterns("/login", "/getallcourses", "/getalltrainees", "/getcourses","/gettrainees");
-        registry.addInterceptor(new CacheInterceptor()).addPathPatterns("/*");
-    }
 }

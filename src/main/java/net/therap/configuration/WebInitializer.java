@@ -1,6 +1,10 @@
 package net.therap.configuration;
 
+import net.therap.filter.AuthenticationFilter;
+import net.therap.filter.CacheFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+import javax.servlet.Filter;
 
 /**
  * @author sadia.afroz
@@ -22,4 +26,10 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
     protected String[] getServletMappings() {
         return new String[] {"/"};
     }
+
+    @Override
+    protected Filter[] getServletFilters() {
+        return new Filter[]{ new CacheFilter(),new AuthenticationFilter()};
+    }
+
 }
