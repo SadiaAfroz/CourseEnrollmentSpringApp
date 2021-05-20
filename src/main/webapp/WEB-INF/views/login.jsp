@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>CourseApp</title>
@@ -28,7 +29,7 @@
                         Login
                     </h1>
                     <div class="form center-align">
-                        <p><span style="color: red; ">${errorMessage}</span></p>
+                        <p><span style="color: red; "><c:out value="${errorMessage}"/></span></p>
                         <form:form action="login" method="post" modelAttribute="admin">
                             <spring:message code="login.usernamePrompt" var="usernamePrompt"/>
                             <spring:message code="login.passwordPrompt" var="passwordPrompt"/>

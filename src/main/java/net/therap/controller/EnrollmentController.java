@@ -35,7 +35,7 @@ public class EnrollmentController {
         return "enrollTrainee";
     }
 
-    @RequestMapping(value = {"/enrollment/enrolltrainee", "/enrolltrainee"})
+    @RequestMapping(  "/enrolltrainee")
     public String enrollTrainee(@RequestParam("traineeid") int traineeId, @RequestParam("courseid") int courseId, RedirectAttributes rttr) {
         int numberOfTrainees = 1;
         if (traineeValidator.hasTraineeCapacity(courseId, numberOfTrainees)) {
@@ -61,7 +61,7 @@ public class EnrollmentController {
         }
     }
 
-    @RequestMapping(value = {"/removeenrollment/removetraineefromcourse", "/removetraineefromcourse"})
+    @RequestMapping( "/removetraineefromcourse")
     public String removeTrainee(@RequestParam("traineeid") int traineeId, @RequestParam("courseid") int courseId, RedirectAttributes rttr) {
         ces.removeTrainee(courseId, traineeId);
         rttr.addFlashAttribute("messageremove", "Successful Removal");

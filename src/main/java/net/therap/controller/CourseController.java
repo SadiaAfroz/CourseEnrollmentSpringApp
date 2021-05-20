@@ -4,6 +4,7 @@ import net.therap.model.Course;
 import net.therap.service.CourseService;
 import net.therap.validator.CourseValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +26,9 @@ public class CourseController {
 
     @Autowired
     private CourseService courseService;
+
     @Autowired
+    @Qualifier("courseValidator")
     private CourseValidator courseValidator;
 
     @RequestMapping(value = "/showenrolledcourses")
@@ -55,22 +58,15 @@ public class CourseController {
         }
     }
 
-    @PostMapping({"/course", "/course/course"})
+    @PostMapping("/course")
     public String process(@Valid @ModelAttribute("course") Course course,
                           BindingResult result, RedirectAttributes rattrs, ModelMap model) {
         if (result.hasErrors()) {
             model.addAttribute("course", course);
             return "courseEdit";
         }
-        if (courseValidator.isValidTitle(course.getTitle())) {
-            System.out.println("This is course post , id :" + course.getId() + " title: " + course.getTitle());
-            courseService.saveOrUpdate(course);
-            return "redirect:/courselist";
-        } else {
-            model.addAttribute("course", course);
-            model.addAttribute("messagesaveorupdate", "Title Already exist");
-            return "courseEdit";
-        }
+        courseService.saveOrUpdate(course);
+        return "redirect:/courselist";
     }
 
     @RequestMapping(value = "/removecourse")
@@ -90,6 +86,7 @@ public class CourseController {
     public void initBinder(WebDataBinder binder) {
         StringTrimmerEditor editor = new StringTrimmerEditor(true);
         binder.registerCustomEditor(String.class, editor);
+        binder.setValidator(courseValidator);
     }
 }
 

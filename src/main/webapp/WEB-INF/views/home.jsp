@@ -24,11 +24,11 @@
     <div class="row">
         <div class="col m6 offset-m3">
             <div>
-                <a href="<c:url value="/course"/>"><spring:message code="messages.addNewCourse" text="addNewCourse" /></a><br>
-                <a href="<c:url value="/trainee"/>"><spring:message code="messages.addNewTrainee" text="addNewTrainee" /></a><br>
-                <a href="<c:url value="/courselist"/>"><spring:message code="messages.viewAllCourses" text="viewAllCourses" /></a><br>
-                <a href="<c:url value="/traineelist"/>"><spring:message code="messages.viewAllTrainees" text="viewAllTrainees" /></a><br>
-                <a href="<c:url value="/logout"/>"><spring:message code="messages.logout" text="logout" /></a>
+                <a href="course"><spring:message code="messages.addNewCourse" text="addNewCourse" /></a><br>
+                <a href="trainee"><spring:message code="messages.addNewTrainee" text="addNewTrainee" /></a><br>
+                <a href="courselist"><spring:message code="messages.viewAllCourses" text="viewAllCourses" /></a><br>
+                <a href="traineelist"><spring:message code="messages.viewAllTrainees" text="viewAllTrainees" /></a><br>
+                <a href="logout"><spring:message code="messages.logout" text="logout" /></a>
             </div>
         </div>
     </div>

@@ -35,7 +35,7 @@
             <td><c:out value="${t.name}"/></td>
             <td><c:out value="${t.email}"/></td>
             <td>
-                <a class="waves-effect waves-light btn-small" href="<c:url value="removetraineefromcourse/?traineeid=${t.id}&courseid=${courseid}"/>">Remove</a>
+                <a class="waves-effect waves-light btn-small" href="<c:url value="removetraineefromcourse?traineeid=${t.id}&courseid=${courseid}"/>">Remove</a>
             </td>
         </tr>
     </c:forEach>

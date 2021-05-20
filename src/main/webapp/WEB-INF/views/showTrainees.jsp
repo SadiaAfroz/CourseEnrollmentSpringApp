@@ -34,9 +34,9 @@
             <td><c:out value="${t.id}"/></td>
             <td><c:out value="${t.name}"/></td>
             <td><c:out value="${t.email}"/></td>
-            <td><a class="waves-effect waves-light btn-small" href="<c:url value="trainee/?id=${t.id}"/>">Edit</a></td>
-            <td><a class="waves-effect waves-light btn-small" href="<c:url value="removetrainee/?id=${t.id}"/>">Remove</a></td>
-            <td><a class="waves-effect waves-light btn-small" href="<c:url value="showenrolledcourses/?id=${t.id}"/>">Show Enrolled Courses</a></td>
+            <td><a class="waves-effect waves-light btn-small" href="<c:url value="trainee?id=${t.id}"/>">Edit</a></td>
+            <td><a class="waves-effect waves-light btn-small" href="<c:url value="removetrainee?id=${t.id}"/>">Remove</a></td>
+            <td><a class="waves-effect waves-light btn-small" href="<c:url value="showenrolledcourses?id=${t.id}"/>">Show Enrolled Courses</a></td>
         </tr>
     </c:forEach>
     </tbody>
