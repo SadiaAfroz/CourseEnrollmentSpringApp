@@ -10,6 +10,10 @@ import org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcesso
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+/**
+ * @author sadia.afroz
+ * @since 5/18/21
+ */
 @Configuration
 @EnableTransactionManagement
 @ComponentScan({"net.therap"})
@@ -38,6 +42,5 @@ public class JpaConfig {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setPersistenceUnitName("courseEnrollment");
         return entityManagerFactoryBean;
-
     }
 }

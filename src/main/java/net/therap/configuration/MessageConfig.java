@@ -6,6 +6,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
+/**
+ * @author sadia.afroz
+ * @since 5/18/21
+ */
 @Configuration
 public class MessageConfig {
 
@@ -16,7 +20,6 @@ public class MessageConfig {
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
-
 
     @Bean
     public LocalValidatorFactoryBean getValidator() {

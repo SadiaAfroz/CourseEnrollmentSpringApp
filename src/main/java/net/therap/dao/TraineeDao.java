@@ -5,7 +5,6 @@ import net.therap.model.Trainee;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -64,14 +63,12 @@ public class TraineeDao {
     }
 
     public int isNameEmailExist(String name, String email) {
-        System.out.println("Email"+ email + " "+ "name "+ name);
         String sql = "SELECT COUNT(id) as count FROM Trainee WHERE name=:name AND email=:email";
         int count = 0;
         Query query = entityManager.createQuery(sql);
 
         count = ((Long) query.setParameter("name", name)
                 .setParameter("email", email).getSingleResult()).intValue();
-        System.out.println("count: "+ count);
         return count;
     }
 
@@ -98,6 +95,6 @@ public class TraineeDao {
     @Transactional
     public void remove(int traineeId) {
         Trainee t = entityManager.find(Trainee.class, traineeId);
-            entityManager.remove(t);
+        entityManager.remove(t);
     }
 }

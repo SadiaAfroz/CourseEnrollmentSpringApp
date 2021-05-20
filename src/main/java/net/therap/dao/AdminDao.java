@@ -2,7 +2,10 @@ package net.therap.dao;
 
 import net.therap.model.Admin;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**

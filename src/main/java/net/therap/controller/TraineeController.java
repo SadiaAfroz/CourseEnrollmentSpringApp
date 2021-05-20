@@ -1,8 +1,6 @@
 package net.therap.controller;
 
-import net.therap.model.Course;
 import net.therap.model.Trainee;
-import net.therap.service.CourseService;
 import net.therap.service.TraineeService;
 import net.therap.validator.TraineeValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,15 +43,15 @@ public class TraineeController {
         }
     }
 
-    @PostMapping({"/trainee","/trainee/trainee"})
+    @PostMapping({"/trainee", "/trainee/trainee"})
     public String process(@Valid @ModelAttribute("trainee") Trainee trainee,
                           BindingResult result, ModelMap model) {
         if (result.hasErrors()) {
             model.addAttribute("trainee", trainee);
             return "editTrainee";
         }
-        boolean isValidNameEmail=traineeValidator.isValidNameEmail(trainee.getName(), trainee.getEmail());
-        boolean isValidEmail=traineeValidator.isValidEmail(trainee.getEmail());
+        boolean isValidNameEmail = traineeValidator.isValidNameEmail(trainee.getName(), trainee.getEmail());
+        boolean isValidEmail = traineeValidator.isValidEmail(trainee.getEmail());
         if (isValidNameEmail && isValidEmail) {
             traineeService.saveOrUpdate(trainee);
             return "redirect:/traineelist";

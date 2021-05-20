@@ -5,7 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-
+/**
+ * @author sadia.afroz
+ * @since 5/18/21
+ */
 public class CourseTitleValidator implements ConstraintValidator<Title, String> {
 
     @Autowired

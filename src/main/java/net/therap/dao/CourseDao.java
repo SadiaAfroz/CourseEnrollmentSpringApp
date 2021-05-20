@@ -5,7 +5,10 @@ import net.therap.model.Trainee;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Set;
 
@@ -25,7 +28,7 @@ public class CourseDao {
     }
 
     public Set<Course> findAllByTraineeId(int traineeId) {
-        Trainee trainee =(Trainee) entityManager.find(Trainee.class, traineeId);
+        Trainee trainee = (Trainee) entityManager.find(Trainee.class, traineeId);
         return trainee.getCourses();
     }
 

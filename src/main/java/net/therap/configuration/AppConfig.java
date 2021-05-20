@@ -8,7 +8,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-
+/**
+ * @author sadia.afroz
+ * @since 5/18/21
+ */
 @Configuration
 @EnableWebMvc
 @ComponentScan({"net.therap"})
