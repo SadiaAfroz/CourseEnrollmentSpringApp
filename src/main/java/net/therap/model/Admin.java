@@ -2,6 +2,7 @@ package net.therap.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -17,9 +18,9 @@ public class Admin implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotEmpty(message = "*can not be empty")
+    @NotNull(message = "*can not be null")
     private String username;
-    @NotEmpty(message = "*can not be empty")
+    @NotNull(message = "*can not be null")
     private String password;
 
     public Admin(String username, String password) {

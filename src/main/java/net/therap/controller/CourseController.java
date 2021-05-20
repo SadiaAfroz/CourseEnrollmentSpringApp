@@ -6,13 +6,17 @@ import net.therap.service.CourseService;
 import net.therap.service.TraineeService;
 import net.therap.validator.CourseValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.Set;
 
 /**
@@ -25,118 +29,70 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
     @Autowired
-    private TraineeService traineeService;
+    private CourseValidator courseValidator;
 
-    @RequestMapping("/traineedetailsbycourseid")
-    public String getTraineeDetails(@ModelAttribute("coursedetails") Course course,
-                                    BindingResult result, ModelMap model) {
-        if (result.hasErrors()) {
-            return "redirect:/welcome";
-        }
-        CourseValidator cv = new CourseValidator();
-        int courseId = course.getId();
-        if (cv.isValidId(courseId)) {
-            Set<Trainee> trainees = traineeService.findAllByCourseId(courseId);
-            if (trainees.size() < 1) {
-                model.addAttribute("messagetrainee", "No Trainee Assigned to the Course");
-            } else {
-                model.addAttribute("trainees", trainees);
-                return "showTrainees";
-            }
+    @RequestMapping(value = "/showenrolledcourses")
+    public String getCourseDetails(@RequestParam("id") int traineeId, ModelMap model, RedirectAttributes rttr) {
+
+        Set<Course> courses = courseService.findAllByTraineeId(traineeId);
+        if (courses == null) {
+            rttr.addFlashAttribute("messagefortraineeaction", "No Course Assigned to the trainee");
+            return "redirect:/traineelist";
         } else {
-            model.addAttribute("messagetrainee", "Invalid Course id");
+            model.addAttribute("courses", courses);
+            return "showTraineeCourses";
         }
-        return "course";
     }
 
-    @GetMapping("/courses")
-    public String show(@RequestParam(value = "id", required = false, defaultValue = "0") Integer id, Model model,
+    @GetMapping("/course")
+    public String show(@RequestParam(value = "id", required = false, defaultValue = "0") int id, Model model,
                        RedirectAttributes rttr) {
 
         if (id == 0 || courseService.isIdExist(id)) {
             Course course = (id == 0) ? new Course() : courseService.find(id);
-            model.addAttribute("coursedetails", course);
-            return "course";
+            model.addAttribute("course", course);
+            return "courseEdit";
         } else {
             rttr.addFlashAttribute("messageinvalidcourseid", "Invalid Course id");
             return "redirect:/welcome";
         }
     }
 
-    @PostMapping("/courses")
-    public String process(@ModelAttribute("coursedetails") Course course, BindingResult result, RedirectAttributes rattrs) {
+    @PostMapping({"/course", "/course/course"})
+    public String process(@Valid @ModelAttribute("course") Course course,
+                          BindingResult result, RedirectAttributes rattrs, ModelMap model) {
         if (result.hasErrors()) {
-            return "redirect:/welcome";
+            model.addAttribute("course", course);
+            return "courseEdit";
         }
-        CourseValidator courseValidator = new CourseValidator();
         if (courseValidator.isValidTitle(course.getTitle())) {
+            System.out.println("This is course post , id :" + course.getId() + " title: " + course.getTitle());
             courseService.saveOrUpdate(course);
-            return "redirect:/getcourses";
+            return "redirect:/courselist";
         } else {
-            rattrs.addFlashAttribute("messagesaveorupdate", "Title already exits");
-            return "redirect:/courses?id=" + course.getId();
+            model.addAttribute("course", course);
+            model.addAttribute("messagesaveorupdate", "Title Already exist");
+            return "courseEdit";
         }
     }
 
     @RequestMapping(value = "/removecourse")
-    public String removeCourse(@ModelAttribute("coursedetails") Course course,
-                               BindingResult result, RedirectAttributes rattrs) {
-        if (result.hasErrors()) {
-            return "redirect:/welcome";
-        }
-        String message = "";
-        CourseValidator courseValidator = new CourseValidator();
-        if (courseValidator.isValidId(course.getId())) {
-            courseService.remove(course);
-            message = "Course Removed Successfully";
-        } else {
-            message = "Invalid Id";
-        }
-        rattrs.addFlashAttribute("messageremovecourse", message);
-        return "redirect:/courses?id=" + course.getId();
+    public String removeCourse(@RequestParam("id") int courseId) {
+        courseService.remove(courseId);
+        return "redirect:/courselist";
     }
 
-    @RequestMapping(value = "/getcourses", method = RequestMethod.GET)
+    @RequestMapping(value = "/courselist", method = RequestMethod.GET)
     public String getAllCourses(Model model) {
         Set<Course> courses = courseService.findAll();
         model.addAttribute("courses", courses);
         return "showCourses";
     }
 
-    @RequestMapping("/enrollment")
-    public String showEnrollTrainee(@ModelAttribute("coursedetails") Course course,
-                                    BindingResult result, ModelMap model) {
-        if (result.hasErrors()) {
-            return "redirect:/welcome";
-        }
-        CourseValidator cv = new CourseValidator();
-        int courseId = course.getId();
-        if (cv.isValidId(courseId)) {
-            Set<Trainee> trainees = traineeService.findAll();
-            model.addAttribute("trainees", trainees);
-            return "enrollTrainee";
-        } else {
-            model.addAttribute("messageenrolltrainee", "Invalid Course id");
-        }
-        return "course";
-    }
-
-    @RequestMapping("/removeenrollment")
-    public String showRemoveTrainee(@ModelAttribute("coursedetails") Course course,
-                                    BindingResult result, ModelMap model) {
-        if (result.hasErrors()) {
-            return "redirect:/welcome";
-        }
-        CourseValidator cv = new CourseValidator();
-        int courseId = course.getId();
-        if (cv.isValidId(courseId)) {
-            Set<Trainee> trainees = traineeService.findAllByCourseId(courseId);
-            model.addAttribute("trainees", trainees);
-            return "removeTrainee";
-        } else {
-            model.addAttribute("messageremovetrainee", "Invalid Course id");
-        }
-        return "course";
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        StringTrimmerEditor editor = new StringTrimmerEditor(true);
+        binder.registerCustomEditor(String.class, editor);
     }
 }
 

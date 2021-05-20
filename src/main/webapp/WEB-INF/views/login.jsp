@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
     <title>CourseApp</title>
@@ -38,24 +39,6 @@
                             <button type="submit" class="btn">Login</button>
                         </form:form>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="col m6 offset-m3">
-            <div>
-                <div class="form center-align">
-                    <form:form action="getallcourses" method="get">
-                        <button type="submit" class="btn">View All Courses</button>
-                    </form:form>
-                </div>
-            </div>
-        </div>
-        <div class="col m6 offset-m3">
-            <div>
-                <div class="form center-align">
-                    <form:form action="getalltrainees" method="get">
-                        <button type="submit" class="btn">View All Trainees</button>
-                    </form:form>
                 </div>
             </div>
         </div>

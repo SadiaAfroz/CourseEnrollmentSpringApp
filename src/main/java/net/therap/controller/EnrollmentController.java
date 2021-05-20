@@ -1,12 +1,21 @@
 package net.therap.controller;
 
+import net.therap.model.Course;
+import net.therap.model.Trainee;
 import net.therap.service.CourseEnrollmentService;
+import net.therap.service.TraineeService;
 import net.therap.validator.TraineeValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Set;
 
 /**
  * @author sadia.afroz
@@ -17,11 +26,22 @@ public class EnrollmentController {
 
     @Autowired
     private CourseEnrollmentService ces;
+    @Autowired
+    private TraineeService traineeService;
+    @Autowired
+    TraineeValidator traineeValidator;
 
-    @PostMapping(value = "/enrollment/enrolltrainee")
-    public String enrollTrainee(@RequestParam("traineeid") Integer traineeId, @RequestParam("courseid") Integer courseId, RedirectAttributes rttr) {
+    @RequestMapping("/enrollment")
+    public String showEnrollTrainee(@RequestParam("id") int courseId,ModelMap model) {
+        Set<Trainee> trainees = traineeService.findAll();
+        model.addAttribute("trainees", trainees);
+        model.addAttribute("courseid",courseId);
+        return "enrollTrainee";
+    }
+
+    @RequestMapping(value = {"/enrollment/enrolltrainee","/enrolltrainee"})
+    public String enrollTrainee(@RequestParam("traineeid") int traineeId, @RequestParam("courseid") int courseId, RedirectAttributes rttr) {
         int numberOfTrainees = 1;
-        TraineeValidator traineeValidator = new TraineeValidator();
         if (traineeValidator.hasTraineeCapacity(courseId, numberOfTrainees)) {
             ces.enrollTrainees(courseId, traineeId);
             rttr.addFlashAttribute("messageenroll", "Successful Enrollment");
@@ -30,9 +50,22 @@ public class EnrollmentController {
         }
         return "redirect:/enrollment?id=" + courseId;
     }
+    @RequestMapping("/removeenrollment")
+    public String showRemoveTrainee(@RequestParam("id") int courseId, ModelMap model, RedirectAttributes rttr) {
 
-    @PostMapping(value = "/removeenrollment/removetraineefromcourse")
-    public String removeTrainee(@RequestParam("traineeid") Integer traineeId, @RequestParam("courseid") Integer courseId, RedirectAttributes rttr) {
+        Set<Trainee> trainees = traineeService.findAllByCourseId(courseId);
+        if (trainees.size() < 1) {
+            rttr.addFlashAttribute("messageforaction", "No Trainees Assigned");
+            return "redirect:/courselist";
+        } else {
+            model.addAttribute("trainees", trainees);
+            model.addAttribute("courseid",courseId);
+            return "removeTrainee";
+        }
+    }
+
+    @RequestMapping(value = {"/removeenrollment/removetraineefromcourse","/removetraineefromcourse"})
+    public String removeTrainee(@RequestParam("traineeid") int traineeId, @RequestParam("courseid") int courseId, RedirectAttributes rttr) {
         ces.removeTrainee(courseId, traineeId);
         rttr.addFlashAttribute("messageremove", "Successful Removal");
         return "redirect:/removeenrollment?id=" + courseId;

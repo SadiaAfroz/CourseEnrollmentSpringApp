@@ -27,10 +27,17 @@
     </tr>
     </thead>
     <tbody>
+    <p><span style="color: red; "><c:out value="${messageforaction}"/></span></p>
     <c:forEach items="${courses}" var="cr">
         <tr>
             <td><c:out value="${cr.id}"/></td>
             <td><c:out value="${cr.title}"/></td>
+            <td>
+                <a class="waves-effect waves-light btn-small" href="<c:url value="course/?id=${cr.id}"/>">Edit</a>
+                <a class="waves-effect waves-light btn-small" href="<c:url value="removecourse/?id=${cr.id}"/>">Remove</a>
+                <a class="waves-effect waves-light btn-small" href="<c:url value="enrollment/?id=${cr.id}"/>">Enroll Trainee</a>
+                <a class="waves-effect waves-light btn-small" href="<c:url value="removeenrollment/?id=${cr.id}"/>">Remove Trainee</a>
+            </td>
         </tr>
     </c:forEach>
     </tbody>

@@ -3,6 +3,8 @@ package net.therap.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,13 +22,16 @@ public class Trainee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotNull(message = "name can't be null")
     private String name;
+    @NotNull(message = "email can't be null")
+    @Email(message = "Email should be valid")
     private String email;
 
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
-    })
+    },fetch = FetchType.EAGER)
     @JoinTable(
             name = "enrollment_pair",
             joinColumns = @JoinColumn(name = "traineeId"),

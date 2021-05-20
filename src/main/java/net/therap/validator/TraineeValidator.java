@@ -1,6 +1,8 @@
 package net.therap.validator;
 
 import net.therap.dao.TraineeDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import static net.therap.util.Capacity.MAX_TRAINEE_TO_COURSE_ENROLL;
 
@@ -8,12 +10,11 @@ import static net.therap.util.Capacity.MAX_TRAINEE_TO_COURSE_ENROLL;
  * @author sadia.afroz
  * @since 4/18/21
  */
+@Component
 public class TraineeValidator {
-    private TraineeDao traineeDao;
 
-    public TraineeValidator() {
-        traineeDao = new TraineeDao();
-    }
+    @Autowired
+    private TraineeDao traineeDao;
 
     public boolean isValidEmail(String traineeEmail) {
         int count = traineeDao.isEmailExists(traineeEmail);
@@ -32,7 +33,6 @@ public class TraineeValidator {
     }
 
     public boolean isValidNameEmail(String name, String email) {
-        TraineeDao traineeDao = new TraineeDao();
         int count = traineeDao.isNameEmailExist(name, email);
         if (count == 0) {
             return true;

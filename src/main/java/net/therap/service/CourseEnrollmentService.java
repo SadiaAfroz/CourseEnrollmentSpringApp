@@ -1,6 +1,7 @@
 package net.therap.service;
 
 import net.therap.dao.CourseEnrollmentDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,13 +11,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class CourseEnrollmentService {
 
+    @Autowired
+    CourseEnrollmentDao ced;
+
     public void enrollTrainees(int courseId, int traineeId) {
-        CourseEnrollmentDao ced = new CourseEnrollmentDao();
         ced.addTraineeList(courseId, traineeId);
     }
 
     public void removeTrainee(int courseId, int traineeId) {
-        CourseEnrollmentDao ced = new CourseEnrollmentDao();
         ced.removeTrainee(courseId, traineeId);
     }
 }

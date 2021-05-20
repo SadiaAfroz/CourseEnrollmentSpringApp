@@ -1,6 +1,9 @@
 package net.therap.validator;
 
 import net.therap.dao.CourseDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 
 import static net.therap.util.Capacity.MAX_COURSE_TO_TRAINEE_ENROLL;
 
@@ -8,13 +11,11 @@ import static net.therap.util.Capacity.MAX_COURSE_TO_TRAINEE_ENROLL;
  * @author sadia.afroz
  * @since 4/18/21
  */
+@Component
 public class CourseValidator {
 
+    @Autowired
     private CourseDao courseDao;
-
-    public CourseValidator() {
-        courseDao = new CourseDao();
-    }
 
     public boolean isValidTitle(String courseName) {
         int count = courseDao.isTitleExists(courseName);

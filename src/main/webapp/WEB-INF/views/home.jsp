@@ -23,19 +23,10 @@
     <div class="row">
         <div class="col m6 offset-m3">
             <div>
-                <form:form action="courses" method="get">
-                    Course Module(id) : <input type="number" name="id"/><br>
-                    <button type="submit" class="btn">Go</button>
-                </form:form>
-                <p><span style="color: red; "> ${messageinvalidcourseid}</span></p><br>
-                <form:form action="trainees" method="get">
-                    Trainee Module(id) : <input type="number" name="id"/><br>
-                    <button type="submit" class="btn">Go</button>
-                </form:form>
-                <p><span style="color: red; "> ${messageinvalidtraineeid}</span></p><br>
-
-                <a href="<c:url value="/getallcourses"/>">View All Courses</a><br>
-                <a href="<c:url value="/getalltrainees"/>">View All Trianess</a><br>
+                <a href="<c:url value="/course"/>">Add New Course</a><br>
+                <a href="<c:url value="/trainee"/>">Add New Trainee</a><br>
+                <a href="<c:url value="/courselist"/>">View All Courses</a><br>
+                <a href="<c:url value="/traineelist"/>">View All Trianess</a><br>
                 <a href="<c:url value="/logout"/>">Logout</a>
             </div>
         </div>

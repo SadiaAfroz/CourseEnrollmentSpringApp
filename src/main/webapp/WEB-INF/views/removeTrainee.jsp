@@ -28,17 +28,14 @@
     </tr>
     </thead>
     <tbody>
-    <p><span style="color: red; ">${messageremove}</span></p>
+    <p><span style="color: red; "><c:out value="${messageremove}"/></span></p>
     <c:forEach items="${trainees}" var="t">
         <tr>
             <td><c:out value="${t.id}"/></td>
             <td><c:out value="${t.name}"/></td>
             <td><c:out value="${t.email}"/></td>
             <td>
-                <form:form action="removetraineefromcourse/?traineeid=${t.id}&courseid=${coursedetails.id}"
-                           method="post">
-                    <button type="submit" class="btn">Enroll</button>
-                </form:form>
+                <a class="waves-effect waves-light btn-small" href="<c:url value="removetraineefromcourse/?traineeid=${t.id}&courseid=${courseid}"/>">Remove</a>
             </td>
         </tr>
     </c:forEach>

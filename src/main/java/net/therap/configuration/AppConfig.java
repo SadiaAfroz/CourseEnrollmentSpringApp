@@ -8,7 +8,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+
 @Configuration
+@EnableWebMvc
 @ComponentScan({"net.therap"})
 public class AppConfig extends WebMvcConfigurationSupport {
 
@@ -18,6 +20,11 @@ public class AppConfig extends WebMvcConfigurationSupport {
         vr.setPrefix("/WEB-INF/views/");
         vr.setSuffix(".jsp");
         return vr;
+    }
+
+    @Override
+    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
     }
 
     public void addInterceptors(InterceptorRegistry registry) {

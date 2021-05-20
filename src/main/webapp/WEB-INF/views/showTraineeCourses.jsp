@@ -1,14 +1,12 @@
 <%--
   Created by IntelliJ IDEA.
   User: sadia.afroz
-  Date: 5/18/21
-  Time: 10:07 AM
+  Date: 5/20/21
+  Time: 11:43 AM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
 <html>
 <head>
     <title>CourseApp</title>
@@ -22,24 +20,21 @@
 <table class="highlight centered responsive-table">
     <thead>
     <tr>
-        <th>Trainee Id</th>
-        <th>Trainee Name</th>
-        <th>Trainee Email</th>
+        <th>Course Id</th>
+        <th>Course Title</th>
     </tr>
     </thead>
+
     <tbody>
-    <p><span style="color: red; ">${messageenroll}</span></p>
-    <c:forEach items="${trainees}" var="t">
+    <c:forEach items="${courses}" var="cr">
         <tr>
-            <td><c:out value="${t.id}"/></td>
-            <td><c:out value="${t.name}"/></td>
-            <td><c:out value="${t.email}"/></td>
-            <td>
-                <a class="waves-effect waves-light btn-small" href="<c:url value="enrolltrainee/?traineeid=${t.id}&courseid=${courseid}"/>">Enroll</a>
-            </td>
+            <td><c:out value="${cr.id}"/></td>
+            <td><c:out value="${cr.title}"/></td>
         </tr>
     </c:forEach>
+
     </tbody>
 </table>
+
 </body>
 </html>

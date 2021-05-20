@@ -1,6 +1,11 @@
 package net.therap.model;
 
+import net.therap.validator.Title;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,9 +23,12 @@ public class Course implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @NotNull(message = "Title can't be null")
+    @Size(min = 1, max = 6, message = "length will be maximum 6")
     private String title;
 
-    @ManyToMany(mappedBy = "courses")
+    @ManyToMany(mappedBy = "courses",fetch = FetchType.EAGER)
     Set<Trainee> trainees;
 
     public Course() {
