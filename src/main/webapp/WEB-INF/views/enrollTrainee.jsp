@@ -28,7 +28,7 @@
     </tr>
     </thead>
     <tbody>
-    <p><span style="color: red; ">${messageenroll}</span></p>
+    <p><span style="color: red; "><c:out value="${messageenroll}"</span></p>
     <c:forEach items="${trainees}" var="t">
         <tr>
             <td><c:out value="${t.id}"/></td>

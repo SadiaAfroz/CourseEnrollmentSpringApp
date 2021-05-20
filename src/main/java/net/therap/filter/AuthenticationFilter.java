@@ -14,8 +14,7 @@ import java.io.IOException;
  * @author sadia.afroz
  * @since 5/6/21
  */
-@Component
-@Order(2)
+@WebFilter("/*")
 public class AuthenticationFilter implements Filter {
 
     @Override

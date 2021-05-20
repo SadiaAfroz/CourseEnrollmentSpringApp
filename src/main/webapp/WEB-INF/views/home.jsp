@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
     <title>CourseApp</title>
@@ -23,11 +24,11 @@
     <div class="row">
         <div class="col m6 offset-m3">
             <div>
-                <a href="<c:url value="/course"/>">Add New Course</a><br>
-                <a href="<c:url value="/trainee"/>">Add New Trainee</a><br>
-                <a href="<c:url value="/courselist"/>">View All Courses</a><br>
-                <a href="<c:url value="/traineelist"/>">View All Trianess</a><br>
-                <a href="<c:url value="/logout"/>">Logout</a>
+                <a href="<c:url value="/course"/>"><spring:message code="messages.addNewCourse" text="addNewCourse" /></a><br>
+                <a href="<c:url value="/trainee"/>"><spring:message code="messages.addNewTrainee" text="addNewTrainee" /></a><br>
+                <a href="<c:url value="/courselist"/>"><spring:message code="messages.viewAllCourses" text="viewAllCourses" /></a><br>
+                <a href="<c:url value="/traineelist"/>"><spring:message code="messages.viewAllTrainees" text="viewAllTrainees" /></a><br>
+                <a href="<c:url value="/logout"/>"><spring:message code="messages.logout" text="logout" /></a>
             </div>
         </div>
     </div>
