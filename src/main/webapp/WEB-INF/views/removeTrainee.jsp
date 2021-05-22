@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
     <title>CourseApp</title>
@@ -22,9 +23,9 @@
 <table class="highlight centered responsive-table">
     <thead>
     <tr>
-        <th>Trainee Id</th>
-        <th>Trainee Name</th>
-        <th>Trainee Email</th>
+        <th><spring:message code="messages.traineeIdHeader"/></th>
+        <th><spring:message code="messages.traineeNameHeader"/></th>
+        <th><spring:message code="messages.traineeEmailHeader"/></th>
     </tr>
     </thead>
     <tbody>

@@ -22,9 +22,9 @@
 <table class="highlight centered responsive-table">
     <thead>
     <tr>
-        <th>Trainee Id</th>
-        <th>Trainee Name</th>
-        <th>Trainee Email</th>
+        <th><spring:message code="messages.traineeIdHeader"/></th>
+        <th><spring:message code="messages.traineeNameHeader"/></th>
+        <th><spring:message code="messages.traineeEmailHeader"/></th>
     </tr>
     </thead>
     <tbody>

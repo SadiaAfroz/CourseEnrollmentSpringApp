@@ -25,7 +25,7 @@
         <div class="card-content">
             <form:form action="course" method="post" modelAttribute="course">
                 <h1><spring:message code="messages.courseTitlePrompt"/></h1><br>
-                <form:hidden path="id" value="${id}"/>
+                <form:hidden path="id"/>
                 <spring:message code="messages.courseTitleInput"/><form:input type="text" path="title"/>
                 <form:errors path="title" cssClass="error"/><br>
                 <button type="submit" class="btn"><spring:message code="messages.save"/></button>

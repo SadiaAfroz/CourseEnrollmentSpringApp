@@ -27,7 +27,7 @@
                 <div class="card-content">
                     <form:form action="trainee" method="post" modelAttribute="trainee">
                         <h1><spring:message code="messages.traineeTitlePrompt" text="default text" /></h1><br>
-                        <form:hidden path="id" value="${id}"/>
+                        <form:hidden path="id"/>
                         <spring:message code="messages.traineeNameInput" text="Name" /><form:input type="text" path="name" /><br>
                         <spring:message code="messages.traineeEmailInput" text="Email" /><form:input type="text" path="email"/><br>
                         <form:errors path="email" cssClass="error"/><br>

@@ -45,6 +45,7 @@
     </c:forEach>
     </tbody>
 </table>
-
+<a class="waves-effect waves-light btn-small" href="welcome">
+    <spring:message code="messages.home"/></a>
 </body>
 </html>

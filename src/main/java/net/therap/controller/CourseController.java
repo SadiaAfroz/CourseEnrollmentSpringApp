@@ -57,9 +57,7 @@ public class CourseController {
     }
 
     @GetMapping("/course")
-    public String show(@RequestParam(value = "id", required = false, defaultValue = "0") int id, Model model,
-                       RedirectAttributes rttr) {
-
+    public String show(@RequestParam(value = "id", required = false, defaultValue = "0") int id, Model model) {
         Course course = (id == 0) ? new Course() : courseService.find(id);
         model.addAttribute("course", course);
         return "course";
