@@ -3,6 +3,7 @@ package net.therap.controller;
 import net.therap.model.Trainee;
 import net.therap.service.CourseEnrollmentService;
 import net.therap.service.TraineeService;
+import net.therap.validator.EnrollmentValidator;
 import net.therap.validator.TraineeValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,14 +23,16 @@ public class EnrollmentController {
 
     @Autowired
     private CourseEnrollmentService ces;
+
     @Autowired
     private TraineeService traineeService;
+
     @Autowired
-    TraineeValidator traineeValidator;
+    EnrollmentValidator enrollmentValidator;
 
     @RequestMapping("/enrollment")
     public String showEnrollTrainee(@RequestParam("id") int courseId, ModelMap model) {
-        Set<Trainee> trainees = traineeService.findAll();
+        Set<Trainee> trainees = traineeService.findNotEnrolledTrainees(courseId);
         model.addAttribute("trainees", trainees);
         model.addAttribute("courseid", courseId);
         return "enrollTrainee";
@@ -38,7 +41,7 @@ public class EnrollmentController {
     @RequestMapping(  "/enrolltrainee")
     public String enrollTrainee(@RequestParam("traineeid") int traineeId, @RequestParam("courseid") int courseId, RedirectAttributes rttr) {
         int numberOfTrainees = 1;
-        if (traineeValidator.hasTraineeCapacity(courseId, numberOfTrainees)) {
+        if (enrollmentValidator.hasTraineeCapacity(courseId, numberOfTrainees)) {
             ces.enrollTrainees(courseId, traineeId);
             rttr.addFlashAttribute("messageenroll", "Successful Enrollment");
         } else {

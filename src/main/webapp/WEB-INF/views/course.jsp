@@ -24,11 +24,11 @@
     <div class="row">
         <div class="card-content">
             <form:form action="course" method="post" modelAttribute="course">
-                <h1><spring:message code="messages.courseTitlePrompt" text="default text" /></h1><br>
+                <h1><spring:message code="messages.courseTitlePrompt"/></h1><br>
                 <form:hidden path="id" value="${id}"/>
-                <spring:message code="messages.courseTitleInput" text="default text" /><form:input type="text" path="title"/>
+                <spring:message code="messages.courseTitleInput"/><form:input type="text" path="title"/>
                 <form:errors path="title" cssClass="error"/><br>
-                <button type="submit" class="btn">Save</button>
+                <button type="submit" class="btn"><spring:message code="messages.save"/></button>
             </form:form>
             <p><span style="color: red; "> <c:out value="${messagesaveorupdate}"/></span></p>
         </div>

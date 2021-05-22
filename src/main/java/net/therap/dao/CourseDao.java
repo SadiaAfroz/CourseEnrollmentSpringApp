@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -53,19 +54,17 @@ public class CourseDao {
     }
 
     @Transactional
-    public void save(Course course) {
-        entityManager.persist(course);
-    }
-
-    @Transactional
     public void saveOrUpdate(Course course) {
+        if (course.isNew()) {
+            entityManager.persist(course);
+        }
         entityManager.merge(course);
     }
 
     @Transactional
     public void remove(int courseId) {
         Course c = entityManager.find(Course.class, courseId);
-        if (c != null) {
+        if (Objects.nonNull(c)) {
             c.removeCourseFromTrainees();
             entityManager.remove(c);
         }

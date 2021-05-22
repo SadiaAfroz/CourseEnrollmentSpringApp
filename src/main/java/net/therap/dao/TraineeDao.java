@@ -73,23 +73,11 @@ public class TraineeDao {
     }
 
     @Transactional
-    public void save(Trainee trainee) {
-        entityManager.persist(trainee);
-        System.out.println("Trainee Added");
-    }
-
-    @Transactional
     public void saveOrUpdate(Trainee trainee) {
-        //Trainee t = entityManager.find(Trainee.class, trainee.getId());
-//        if (trainee.getName() != null) {
-//            t.setName(trainee.getName());
-//        }
-//        if (trainee.getEmail() != null) {
-//            t.setEmail(trainee.getEmail());
-//        }
-
+        if (trainee.isNew()) {
+            entityManager.persist(trainee);
+        }
         entityManager.merge(trainee);
-        System.out.println("Trainee Name/Email Updated");
     }
 
     @Transactional

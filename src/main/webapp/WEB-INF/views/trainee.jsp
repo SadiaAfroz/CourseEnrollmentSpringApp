@@ -30,6 +30,7 @@
                         <form:hidden path="id" value="${id}"/>
                         <spring:message code="messages.traineeNameInput" text="Name" /><form:input type="text" path="name" /><br>
                         <spring:message code="messages.traineeEmailInput" text="Email" /><form:input type="text" path="email"/><br>
+                        <form:errors path="email" cssClass="error"/><br>
                         <button type="submit" class="btn">Save</button>
                     </form:form>
                     <p><span style="color: red; "><c:out value="${messagesaveorupdate}"/></span></p>

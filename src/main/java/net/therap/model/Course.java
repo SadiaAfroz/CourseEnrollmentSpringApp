@@ -1,7 +1,6 @@
 package net.therap.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,10 +19,10 @@ public class Course implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Size(min = 1, max = 6,message = "Size.course.title")
+    //@Size(min = 1, max = 6, message = "${Size.course.title}")
     private String title;
 
-    @ManyToMany(mappedBy = "courses",fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "courses", fetch = FetchType.EAGER)
     Set<Trainee> trainees;
 
     public Course() {
@@ -78,6 +77,13 @@ public class Course implements Serializable {
         for (Trainee trainee : trainees) {
             trainee.getCourses().remove(this);
         }
+    }
+
+    public boolean isNew() {
+        if (this.id == 0) {
+            return true;
+        }
+        return false;
     }
 
     @Override

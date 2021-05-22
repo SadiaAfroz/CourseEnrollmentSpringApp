@@ -102,6 +102,23 @@ public class Trainee implements Serializable {
         }
     }
 
+    public boolean isNew() {
+        if (this.id == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
     @Override
     public String toString() {
         return "Trainee{" +

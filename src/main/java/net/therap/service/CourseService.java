@@ -29,10 +29,6 @@ public class CourseService {
         return courses;
     }
 
-    public void save(Course course) {
-        courseDao.save(course);
-    }
-
     public void saveOrUpdate(Course course) {
         courseDao.saveOrUpdate(course);
     }
