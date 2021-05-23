@@ -2,7 +2,9 @@ package net.therap.controller;
 
 import net.therap.dao.AdminDao;
 import net.therap.model.Admin;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -23,6 +25,9 @@ import javax.validation.Valid;
 @Controller
 public class LoginController {
 
+    @Autowired
+    private MessageSource messageSource;
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loadLogin(Model model) {
         Admin admin = new Admin();
@@ -34,7 +39,7 @@ public class LoginController {
     public String loadWelcome(@Valid @ModelAttribute("admin") Admin admin,
                               BindingResult result, ModelMap model, HttpSession session) {
         if (result.hasErrors()) {
-            model.addAttribute("errorMessage", "Wrong Formatted Data input");
+            model.addAttribute("errorMessage", messageSource.getMessage("messages.loginwrongformat", null, " ", null));
             return "login";
         }
         AdminDao adminDao = new AdminDao();
@@ -43,7 +48,7 @@ public class LoginController {
             session.setAttribute("sesionid", adminFound.getId());
             return "redirect:/welcome";
         } else {
-            model.addAttribute("errorMessage", "Invalid Credentials");
+            model.addAttribute("errorMessage", messageSource.getMessage("messages.logininvalidcred", null, " ", null));
             return "login";
         }
     }

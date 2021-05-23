@@ -31,8 +31,8 @@
                     <div class="form center-align">
                         <p><span style="color: red; "><c:out value="${errorMessage}"/></span></p>
                         <form:form action="login" method="post" modelAttribute="admin">
-                            <spring:message code="login.usernamePrompt" var="usernamePrompt"/>
-                            <spring:message code="login.passwordPrompt" var="passwordPrompt"/>
+                            <spring:message code="messages.loginusernamePrompt" var="usernamePrompt"/>
+                            <spring:message code="messages.loginpasswordPrompt" var="passwordPrompt"/>
                             Enter username: <form:input type="text" path="username" placeholder="${usernamePrompt}"/><br>
                             <form:errors path="username"/><br>
                             Enter password: <form:input type="password" path="password" placeholder="${passwordPrompt}"/><br>

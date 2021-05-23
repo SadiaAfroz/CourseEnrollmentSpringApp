@@ -6,6 +6,7 @@ import net.therap.validator.CourseValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.context.MessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +34,7 @@ public class CourseController {
     private CourseValidator courseValidator;
 
     @Autowired
-    private Environment env;
+    private MessageSource messageSource;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -47,7 +48,7 @@ public class CourseController {
 
         Set<Course> courseList = courseService.findAllByTraineeId(traineeId);
         if (courseList.size() < 1) {
-            rttr.addFlashAttribute("messagefortraineeaction", env.getProperty("messages.messagefortraineeaction"));
+            rttr.addFlashAttribute("messagefortraineeaction", messageSource.getMessage("messages.messagefortraineeaction", null, " ", null));
             return "redirect:/traineelist";
         } else {
             model.addAttribute("courseList", courseList);
@@ -65,7 +66,7 @@ public class CourseController {
 
     @PostMapping("/course")
     public String process(@Valid @ModelAttribute("course") Course course,
-                          BindingResult result, RedirectAttributes rattrs, ModelMap model) {
+                          BindingResult result, ModelMap model) {
         if (result.hasErrors()) {
             model.addAttribute("course", course);
             return "course";
