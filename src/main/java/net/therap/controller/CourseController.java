@@ -39,7 +39,7 @@ public class CourseController {
     public void initBinder(WebDataBinder binder) {
         StringTrimmerEditor editor = new StringTrimmerEditor(true);
         binder.registerCustomEditor(String.class, editor);
-        binder.setValidator(courseValidator);
+        binder.addValidators(courseValidator);
     }
 
     @RequestMapping(value = "/showenrolledcourses")

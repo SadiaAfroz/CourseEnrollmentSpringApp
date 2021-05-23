@@ -35,7 +35,7 @@ public class TraineeController {
     public void initBinder(WebDataBinder binder) {
         StringTrimmerEditor editor = new StringTrimmerEditor(true);
         binder.registerCustomEditor(String.class, editor);
-        binder.setValidator(traineeValidator);
+        binder.addValidators(traineeValidator);
     }
 
     @GetMapping("/trainee")

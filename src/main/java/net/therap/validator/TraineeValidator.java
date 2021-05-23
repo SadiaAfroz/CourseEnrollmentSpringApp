@@ -20,30 +20,6 @@ public class TraineeValidator implements Validator {
     @Autowired
     private TraineeDao traineeDao;
 
-//    public boolean isValidEmail(String traineeEmail) {
-//        int count = traineeDao.isEmailExists(traineeEmail);
-//        if (count == 0) {
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    public boolean isValidId(int id) {
-//        int count = traineeDao.isIdExists(id);
-//        if (count == 0) {
-//            return false;
-//        }
-//        return true;
-//    }
-
-//    public boolean isValidNameEmail(String name, String email) {
-//        int count = traineeDao.isNameEmailExist(name, email);
-//        if (count == 0) {
-//            return true;
-//        }
-//        return false;
-//    }
-
     @Override
     public boolean supports(Class<?> clazz) {
         return Trainee.class.equals(clazz);

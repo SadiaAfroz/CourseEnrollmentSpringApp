@@ -1,6 +1,9 @@
 package net.therap.model;
 
+import org.springframework.context.annotation.PropertySource;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,7 +22,7 @@ public class Course implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    //@Size(min = 1, max = 6, message = "${Size.course.title}")
+    @Size(min = 1, max = 6, message = "Size.course.title")
     private String title;
 
     @ManyToMany(mappedBy = "courses", fetch = FetchType.EAGER)
